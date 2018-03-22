@@ -1,7 +1,9 @@
 FROM brettt89/silverstripe-web
 RUN apt-get update && apt-get install -y --no-install-recommends \
     mysql-client \
+    unzip \
     wget \
+    zip \
     ; apt-get purge -y --auto-remove \
     ; rm -rf /var/lib/apt/lists/*
 
