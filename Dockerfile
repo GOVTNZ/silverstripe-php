@@ -1,17 +1,7 @@
 FROM brettt89/silverstripe-web
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    apt-transport-https \
-    build-essential \
-    ca-certificates \
-    git \
-    lsb-release \
     mysql-client \
-    openssh-server \
-    ruby ruby-dev \
-    unzip \
-    vim \
     wget \
-    zip \
     ; apt-get purge -y --auto-remove \
     ; rm -rf /var/lib/apt/lists/*
 
@@ -33,30 +23,9 @@ RUN set -ex; \
 
 
 #
-# Install node, npm, webpack
-#
-RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh; \
-    bash nodesource_setup.sh; \
-    apt-get install nodejs; \
-    npm install -g webpack; \
-    npm install -g webpack-cli
-
-
-#
-# Install compass
-#
-RUN gem install sass -v 3.4.25; \
-    gem install compass
-
-
-
-#
 # Install composer, sake and supply a default _ss_environment file
 #
-COPY resources/install-composer.sh /tmp/
 COPY resources/sake /usr/local/bin/
 COPY resources/_ss_environment.php /var/www/
 
-RUN chmod 755 /usr/local/bin/sake && \
-    chmod 755 /tmp/install-composer.sh && \
-    /tmp/install-composer.sh
+RUN chmod 755 /usr/local/bin/sake
