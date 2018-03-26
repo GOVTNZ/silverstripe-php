@@ -1,6 +1,7 @@
 FROM brettt89/silverstripe-web
 RUN apt-get update && apt-get install -y --no-install-recommends \
     mysql-client \
+    ruby ruby-dev \
     unzip \
     wget \
     zip \
@@ -25,9 +26,17 @@ RUN set -ex; \
 
 
 #
+# Install sass and compass
+#
+RUN gem install sass -v 3.4.25; \
+    gem install compass
+
+
+#
 # Install composer, sake and supply a default _ss_environment file
 #
 COPY resources/sake /usr/local/bin/
 COPY resources/_ss_environment.php /var/www/
+
 
 RUN chmod 755 /usr/local/bin/sake
