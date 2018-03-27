@@ -1,5 +1,6 @@
 FROM brettt89/silverstripe-web
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    locales \
     mysql-client \
     ruby ruby-dev \
     unzip \
@@ -30,6 +31,16 @@ RUN set -ex; \
 #
 RUN gem install sass -v 3.4.25; \
     gem install compass
+
+
+#
+# Set the default locale (needed for compass)
+#
+RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen && \
+    locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 
 #
