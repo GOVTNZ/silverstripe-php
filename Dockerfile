@@ -1,11 +1,14 @@
 FROM brettt89/silverstripe-web
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
     locales \
     mysql-client \
     ruby ruby-dev \
     unzip \
     wget \
     zip \
+    apt-transport-https \
+    lsb-release \
     ; apt-get purge -y --auto-remove \
     ; rm -rf /var/lib/apt/lists/*
 
@@ -24,6 +27,20 @@ RUN set -ex; \
 	rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc; \
 	chmod +x /usr/local/bin/gosu; \
 	gosu nobody true
+
+
+#
+# Install node, npm, webpack
+#
+RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh; \
+    bash nodesource_setup.sh; \
+    apt-get install nodejs; \
+    chmod 777 /usr/lib/node_modules/; \
+    chmod 777 /usr/bin
+
+
+#    npm install -g webpack; \
+#    npm install -g webpack-cli
 
 
 #
