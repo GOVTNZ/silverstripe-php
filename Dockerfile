@@ -59,6 +59,14 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+#
+# Temporarily enable jpeg and freetype in this docker file until PR23 is released
+# see: https://github.com/brettt89/silverstripe-web/pull/23
+#
+RUN docker-php-ext-configure gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ && docker-php-ext-install gd
 
 #
 # Install composer, sake and supply a default _ss_environment file
