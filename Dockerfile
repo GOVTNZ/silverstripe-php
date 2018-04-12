@@ -1,6 +1,8 @@
 FROM brettt89/silverstripe-web
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    libfontconfig1 \
+    libxrender1 \
     locales \
     mysql-client \
     ruby ruby-dev \
@@ -59,6 +61,22 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
+
+#
+# Install WKHTMLTOPDF (https://wkhtmltopdf.org/)
+#
+RUN set -ex; \
+    wget -O /tmp/wkhtmltopdf.tar.gz "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz"
+
+RUN cd /tmp; \
+    tar -xf /tmp/wkhtmltopdf.tar.gz; \
+    mv /tmp/wkhtmltox /opt; \
+    ls -l /opt/wkhtmltox/bin; \
+    ln -s /opt/wkhtmltox/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf; \
+    chmod 555 /usr/local/bin/wkhtmltopdf; \
+    /usr/local/bin/wkhtmltopdf -h
+
+
 #
 # Temporarily enable jpeg and freetype in this docker file until PR23 is released
 # see: https://github.com/brettt89/silverstripe-web/pull/23
@@ -67,6 +85,7 @@ RUN docker-php-ext-configure gd \
     --with-freetype-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ \
     --with-png-dir=/usr/include/ && docker-php-ext-install gd
+
 
 #
 # Install composer, sake and supply a default _ss_environment file
