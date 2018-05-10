@@ -28,7 +28,7 @@ RUN set -ex; \
 	gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
 	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
 	rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc; \
-	chmod +x /usr/local/bin/gosu; \
+	chmod +xs /usr/local/bin/gosu; \
 	gosu nobody true
 
 
@@ -100,6 +100,15 @@ COPY resources/mail.ini /usr/local/etc/php/conf.d/mail.ini
 #
 COPY resources/sake /usr/local/bin/
 COPY resources/_ss_environment.php /var/www/
-
-
 RUN chmod 755 /usr/local/bin/sake
+
+#
+# Add entrypoint
+#
+COPY resources/entrypoint.sh /
+RUN chmod 755 /entrypoint.sh
+
+COPY resources/fork.sh /
+RUN chmod 755 /fork.sh
+
+CMD ["/entrypoint.sh"]
