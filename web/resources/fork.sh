@@ -3,13 +3,35 @@ set -e
 
 HOST_UID=$(id -u)
 HOST_GID=$(id -g)
-export COMPOSER_HOME=/home/container/.composer
+export COMPOSER_HOME=/cache/.composer
 
 echo "INFO: Forked web-container... ($HOST_UID:$HOST_GID)"
 
+#
+# Test for valid Silverstripe project
+#
 if [ ! -f "composer.json" ]; then
-  echo "ERROR: The working directory doesn't look like a valid Silverstripe project. Perhaps you forgot to mount it?"
+  echo "FATAL: The working directory doesn't look like a valid Silverstripe project. Perhaps you forgot to mount it?"
   exit 255
+fi
+
+
+#
+# Make sure that /cache is mounted
+#
+if [ ! -d "/cache" ]; then
+  echo "WARNING: /cache volume NOT mounted, creating directories but disabled caching"
+  mkdir /cache
+fi
+
+
+#
+# Create composer cache directory in cache volume
+#
+if [ ! -d "$COMPOSER_HOME" ]; then
+  echo "INFO: created composer cache directory"
+  mkdir $COMPOSER_HOME
+  chmod 777 $COMPOSER_HOME
 fi
 
 
@@ -44,7 +66,7 @@ fi
 # Build database
 #
 if [ -d "framework" ]; then
-  echo "INFO: Generating database..."
+  echo "INFO: Generating database - this can take a while..."
   sake dev/build
   echo "INFO: Done"
 fi
@@ -54,10 +76,8 @@ fi
 # Configure and reindex SOLR
 #
 if [ ! -d "/index/data" ]; then
-  echo "INFO: Not configuring SOLR (missing '/index' volume)"
-fi
-
-if [ -d "/index/data" ]; then
+  echo "WARNING: Not configuring SOLR because of missing '/index' volume"
+else
   echo "INFO: Configuring SOLR and reindexing..."
   sake dev/tasks/Solr_Configure
   sake dev/tasks/Solr_Reindex
