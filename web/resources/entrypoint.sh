@@ -11,4 +11,26 @@ useradd -d /home/container -m -s /bin/bash -g container container
 groupadd host_group --gid $HOST_GID
 useradd host_user --gid $HOST_GID --uid $HOST_UID
 
+#
+# Test for valid Silverstripe project
+#
+if [ ! -f "composer.json" ]; then
+  echo "FATAL: The working directory doesn't look like a valid Silverstripe project. Perhaps you forgot to mount it?"
+  exit 255
+fi
+
+
+#
+# Make sure that /cache is mounted
+#
+if [ ! -d "/cache" ]; then
+  echo "WARNING: /cache volume NOT mounted, creating directories but disabled caching"
+  mkdir /cache
+fi
+
+#
+# Change permissions on /cache
+#
+chmod 777 /cache
+
 exec gosu $HOST_UID:$HOST_GID /fork.sh

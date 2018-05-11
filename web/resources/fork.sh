@@ -7,23 +7,6 @@ export COMPOSER_HOME=/cache/.composer
 
 echo "INFO: Forked web-container... ($HOST_UID:$HOST_GID)"
 
-#
-# Test for valid Silverstripe project
-#
-if [ ! -f "composer.json" ]; then
-  echo "FATAL: The working directory doesn't look like a valid Silverstripe project. Perhaps you forgot to mount it?"
-  exit 255
-fi
-
-
-#
-# Make sure that /cache is mounted
-#
-if [ ! -d "/cache" ]; then
-  echo "WARNING: /cache volume NOT mounted, creating directories but disabled caching"
-  mkdir /cache
-fi
-
 
 #
 # Create composer cache directory in cache volume
@@ -38,10 +21,10 @@ fi
 #
 # Run composer install if the framework directory is missing
 #
-if [ ! -d "framework" ]; then
-  echo "INFO: Missing framework directory, running composer install..."
-  composer install
-fi
+#if [ ! -d "framework" ]; then
+#  echo "INFO: Missing framework directory, running composer install..."
+#  composer install
+#fi
 
 
 #
@@ -65,28 +48,28 @@ fi
 #
 # Build database
 #
-if [ -d "framework" ]; then
-  echo "INFO: Generating database - this can take a while..."
-  sake dev/build
-  echo "INFO: Done"
-fi
+#if [ -d "framework" ]; then
+#  echo "INFO: Generating database - this can take a while..."
+#  sake dev/build
+#  echo "INFO: Done"
+#fi
 
 
 #
 # Configure and reindex SOLR
 #
-if [ ! -d "/index/data" ]; then
-  echo "WARNING: Not configuring SOLR because of missing '/index' volume"
-else
-  echo "INFO: Configuring SOLR and reindexing..."
-  sake dev/tasks/Solr_Configure
-  sake dev/tasks/Solr_Reindex
-  echo "INFO: Done"
-fi
+#if [ ! -d "/index/data" ]; then
+#  echo "WARNING: Not configuring SOLR because of missing '/index' volume"
+#else
+#  echo "INFO: Configuring SOLR and reindexing..."
+#  sake dev/tasks/Solr_Configure
+#  sake dev/tasks/Solr_Reindex
+#  echo "INFO: Done"
+#fi
 
-echo "INFO: Starting apache..."
 
 #
 # Start apache
 #
+echo "INFO: Starting apache..."
 exec gosu 0:0 /usr/local/bin/apache2-foreground

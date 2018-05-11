@@ -33,17 +33,13 @@ RUN set -ex; \
 
 
 #
-# Install node, npm, webpack
+# Install node, npm
 #
 RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh; \
     bash nodesource_setup.sh; \
     apt-get install nodejs; \
     chmod 777 /usr/lib/node_modules/; \
     chmod 777 /usr/bin
-
-
-#    npm install -g webpack; \
-#    npm install -g webpack-cli
 
 
 #
@@ -102,13 +98,24 @@ COPY resources/sake /usr/local/bin/
 COPY resources/_ss_environment.php /var/www/
 RUN chmod 755 /usr/local/bin/sake
 
+
 #
-# Add entrypoint
+# Add scripts
 #
 COPY resources/entrypoint.sh /
 RUN chmod 755 /entrypoint.sh
 
 COPY resources/fork.sh /
 RUN chmod 755 /fork.sh
+
+COPY resources/shell.sh /usr/bin/shell
+RUN chmod 755 /usr/bin/shell
+
+COPY resources/runas.sh /usr/bin/runas
+RUN chmod 755 /usr/bin/runas
+
+COPY resources/000-default.conf /etc/apache2/sites-available
+COPY resources/setup/setup.php /var/www/setup/setup.php
+COPY resources/setup/install.html /var/www/setup/install.html
 
 CMD ["/entrypoint.sh"]
