@@ -14,31 +14,86 @@ header('Cache-Control: no-cache');
 //$url = $_REQUEST['url'];
 $method = $_SERVER['REQUEST_METHOD'];
 
+$root = '/var/www/html/';
+
 if ($method === 'GET') {
-    echo file_get_contents("install.html");
+//    if (file_exists($root . ".needs-setup")) {
+        if (!file_exists($root . "framework")) {
+            echo file_get_contents("composer.html");
+        } else {
+            echo file_get_contents("setup_database.html");
+        }
+//    } else {
+//        echo file_get_contents("dashboard.html");
+//    }
 }
 
 if ($method === 'POST') {
-    $myfile = fopen("/var/www/html/.setup-done", "w") or die("Unable to open file!");
-    fclose($myfile);
+    $action = isset($_POST['action']) ? $_POST['action'] : '';
 
-    if (isset($_POST['install_yes'])) {
-        setup();
+    if ($action === 'upload') {
+        if(!empty($_FILES['uploaded_file'])) {
+            $path = "/tmp/";
+            $path = $path . basename( $_FILES['uploaded_file']['name']);
+
+            $tmpName = $_FILES['uploaded_file']['tmp_name'];
+
+            $result = true;
+            if (!is_uploaded_file($path)) {
+                rename($tmpName, $path);
+            } else {
+                $result = move_uploaded_file($tmpName, $path);
+            }
+
+            if($result) {
+                runCommand("/usr/bin/runas /usr/local/bin/sspak load " . $path);
+                runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
+
+                @unlink($root . ".needs-setup");
+                echo "<a href='/'>Open site</a>";
+                exit();
+            } else {
+                echo "There was an error uploading the file, please try again!";
+                exit();
+            }
+        }
+    } else if (isset($_POST['composer_install'])) {
+        runCommand("/usr/bin/runas /usr/local/bin/composer -v install 2>&1 ");
+        echo "<a href='/'>Setup database</a>";
+        exit();
+    } else if ($action === 'empty_db' || isset($_POST['setup_empty_db'])) {
+        deleteDb();
+        runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
+        runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
+        runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Reindex 2>&1 ");
+        echo "<a href='/'>Open site</a>";
+        @unlink($root . ".needs-setup");
+        exit();
+    } else if ($action === 'use_existing_db' || isset($_POST['use_existing_db'])) {
+        echo file_get_contents("rundevbuild.html");
+        exit();
+    } else if (isset($_POST['run_dev_build'])) {
+        runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
+        runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
+        echo "<a href='/'>Open site</a>";
+        @unlink($root . ".needs-setup");
+        exit();
+    } else if (isset($_POST['finish'])) {
+        @unlink($root . ".needs-setup");
+        header('Location: /');
         exit();
     }
 
-    header('Location: /?t=0');
+    header('Location: /');
     exit();
 }
 
+function deleteDb() {
+    $conn = new mysqli("db", "root", "root");
 
-function setup() {
-    runCommand("/usr/bin/runas /usr/local/bin/composer -v install 2>&1 ");
-    runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
-    runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
-    runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Reindex 2>&1 ");
-
-    echo "<a href='/'>Open site</a>";
+    $sql = "DROP DATABASE SS_cwp";
+    $result = $conn->query($sql);
+    $conn->close();
 }
 
 function runCommand($cmd) {

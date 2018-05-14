@@ -1,0 +1,22 @@
+<h1>Setup</h1>
+
+Would you like to start with an empty database or re-use the data in the `data` volume instead?
+<br />
+
+<form name="frm" method="post" action="/_setup">
+    <input type="radio" name="action" value="use_existing_db" checked>Use existing database content<br>
+    <input type="radio" name="action" value="empty_db">Empty database<br>
+
+    <button name="submit" type="submit">Next</button>
+</form>
+
+<h2>- or -</h2>
+<h2>Load an existing sspak file</h2>
+
+<form enctype="multipart/form-data" action="/_setup" method="POST">
+    <input type="hidden" name="action" value="upload">
+
+    <p>Upload your file</p>
+    <input type="file" name="uploaded_file"><br />
+    <input type="submit" value="Upload">
+</form>

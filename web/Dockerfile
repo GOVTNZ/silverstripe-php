@@ -114,8 +114,10 @@ RUN chmod 755 /usr/bin/shell
 COPY resources/runas.sh /usr/bin/runas
 RUN chmod 755 /usr/bin/runas
 
+COPY resources/behat.sh /usr/bin/behat
+RUN chmod 755 /usr/bin/behat
+
 COPY resources/000-default.conf /etc/apache2/sites-available
-COPY resources/setup/setup.php /var/www/setup/setup.php
-COPY resources/setup/install.html /var/www/setup/install.html
+COPY resources/setup/* /var/www/setup/
 
 CMD ["/entrypoint.sh"]
