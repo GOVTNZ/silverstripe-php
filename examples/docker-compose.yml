@@ -1,0 +1,63 @@
+version: '3.3'
+
+volumes:
+  data: # volume for mysql
+  index: # volume for solr
+  cache: # volume for composer and other tools
+
+services:
+  db:
+    image: mysql/mysql-server:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: volume
+        source: data
+        target: /var/lib/mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+
+  search:
+    image: govtnz/silverstripe-localsolr:1.0
+    expose:
+      - "8983"
+    volumes:
+      - type: volume
+        source: index
+        target: /index
+
+  mailcatcher:
+    image: tophfr/mailcatcher
+    ports:
+      - 1080:80
+    expose:
+      - "25"
+
+  selenium:
+    image: selenium/standalone-chrome-debug
+    ports:
+      - "5900:5900"
+    expose:
+      - "4444"
+
+  web:
+    depends_on:
+      - db
+      - search
+    image: govtnz/silverstripe-web-container:1.0
+    ports:
+      - "8000:80"
+    volumes:
+      - type: bind
+        source: ./
+        target: /var/www/html
+      - type: volume
+        source: cache
+        target: /cache
+      - type: tmpfs
+        target: /tmp
+      - type: volume
+        source: index
+        target: /index
