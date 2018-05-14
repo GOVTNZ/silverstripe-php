@@ -3,6 +3,7 @@
 ## Requirements
 
 - [*Docker*](https://docs.docker.com/)
+- [*Docker Compose*](https://docs.docker.com/compose/overview/)
 
 ## Builds
 
@@ -19,25 +20,32 @@ This image comes pre-packaged with a the default php extensions and configuratio
 - [xdebug](https://xdebug.org/)
 - [sspak](https://github.com/silverstripe/sspak)
 - [composer](https://getcomposer.org/)
-- [npm]
-- [compass]
-- [wkhtmltopdf]
-- [gosu]
-- [behat]
-- [sake]
+- [npm](https://www.npmjs.com/)
+- [compass](http://compass-style.org/)
+- [wkhtmltopdf](https://wkhtmltopdf.org/)
+- [gosu](https://github.com/tianon/gosu)
+- [behat](http://behat.org/)
+- [sake](https://docs.silverstripe.org/en/4/developer_guides/cli/)
 
-## Running with Docker
+## Running with Docker-Compose
+
+Add the example `docker-compose.yml` file to your project and run `docker-compose up`. If you open a browser session to `localhost:8000`, you will guided through the initial setup.
+
+The following scripts are available in this image;
+- behat (`docker-compose exec web behat @mysite`)
+- sspak (`docker-compose exec web sspak load <filename>`)
+- sake (`docker-compose exec web sake dev/build`)
+- shell (`docker-compose exec web shell`)
 
 This image can also be run directly with docker. However it will need to be linked with a database in order for SilverStripe to successfully build.
 
 ```bash
-docker run -p 3306:3306 --name database mysql
+docker run -p 3306:3306 --name db mysql
 docker run -p 80:80 -v /path/to/project:/var/www/html --link db --name project1 govtnz/silverstripe-web-container:1.0
 ```
 
 NOTE: A default `_ss_environment.php` file has been provided that expects a database server with the specific hostname `db`
 
-Once you've started the image, a setup screen is shown which guides you through the initial setup.
 
 # License
 
