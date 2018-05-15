@@ -1,0 +1,15 @@
+default:
+  filters:
+    tags: "~@todo"
+  formatter:
+    name: pretty
+  extensions:
+    SilverStripe\BehatExtension\MinkExtension:
+      base_url:  'http://web/'
+      default_session: selenium2
+      javascript_session: selenium2
+      selenium2:
+        wd_host: http://selenium:4444/wd/hub
+        browser: chrome
+    SilverStripe\BehatExtension\Extension:
+      screenshot_path: %behat.paths.base%/_artifacts/screenshots
