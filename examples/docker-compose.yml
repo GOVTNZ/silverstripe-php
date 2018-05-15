@@ -1,13 +1,13 @@
 version: '3.3'
 
 volumes:
-  data: # volume for mysql
+  data: # volume for mariadb
   index: # volume for solr
   cache: # volume for composer and other tools
 
 services:
   db:
-    image: mysql/mysql-server:5.7
+    image: mariadb:5.5
     ports:
       - "3306:3306"
     volumes:
