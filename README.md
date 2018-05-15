@@ -38,15 +38,7 @@ The following scripts are available in this image;
 - sake (`docker-compose exec web sake dev/build`)
 - shell (`docker-compose exec web shell`)
 
-This image can also be run directly with docker. However it will need to be linked with a database in order for SilverStripe to successfully build.
-
-```bash
-docker run -p 3306:3306 --name db mysql
-docker run -p 80:80 -v /path/to/project:/var/www/html --link db --name project1 govtnz/silverstripe-web-container:1.0
-```
-
-NOTE: A default `_ss_environment.php` file has been provided that expects a database server with the specific hostname `db`
-
+NOTE: A default `_ss_environment.php` file has been provided that expects a database server with the specific hostname `db`. CMS Admin username and password is set to root/root. All emails send out by the application are caught by mailctacher. Browse to `localhost:1080` to see those emails.
 
 # License
 
