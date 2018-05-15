@@ -87,37 +87,41 @@ RUN docker-php-ext-configure gd \
 #
 # Add SSMTP configuration and PHP Mail configuration
 #
-COPY resources/ssmtp.conf /etc/ssmtp/ssmtp.conf
-COPY resources/mail.ini /usr/local/etc/php/conf.d/mail.ini
+COPY resources/conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
+COPY resources/conf/mail.ini /usr/local/etc/php/conf.d/mail.ini
 
 
 #
 # Install composer, sake and supply a default _ss_environment file
 #
-COPY resources/sake /usr/local/bin/
-COPY resources/_ss_environment.php /var/www/
-RUN chmod 755 /usr/local/bin/sake
+COPY resources/scripts/sake.sh /usr/local/bin/sake
+COPY resources/conf/_ss_environment.php /var/www/
 
 
 #
-# Add scripts
+# Add scripts and configuration
 #
-COPY resources/entrypoint.sh /
-RUN chmod 755 /entrypoint.sh
-
-COPY resources/fork.sh /
-RUN chmod 755 /fork.sh
-
-COPY resources/shell.sh /usr/bin/shell
-RUN chmod 755 /usr/bin/shell
-
-COPY resources/runas.sh /usr/bin/runas
-RUN chmod 755 /usr/bin/runas
-
-COPY resources/behat.sh /usr/bin/behat
-RUN chmod 755 /usr/bin/behat
-
-COPY resources/000-default.conf /etc/apache2/sites-available
+COPY resources/scripts/entrypoint.sh /
+COPY resources/scripts/fork.sh /
+COPY resources/scripts/shell.sh /usr/bin/shell
+COPY resources/scripts/runas.sh /usr/bin/runas
+COPY resources/scripts/behat.sh /usr/bin/behat
+COPY resources/conf/000-default.conf /etc/apache2/sites-available
 COPY resources/setup/* /var/www/setup/
 
+
+#
+# Modify permissions
+#
+RUN chmod 755 /usr/bin/behat; \
+    chmod 755 /usr/local/bin/sake; \
+    chmod 755 /entrypoint.sh; \
+    chmod 755 /fork.sh; \
+    chmod 755 /usr/bin/shell; \
+    chmod 755 /usr/bin/runas
+
+
+#
+# Entry point
+#
 CMD ["/entrypoint.sh"]

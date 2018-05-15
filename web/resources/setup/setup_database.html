@@ -1,22 +1,90 @@
-<h1>Setup</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
 
-Would you like to start with an empty database or re-use the data in the `data` volume instead?
-<br />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-<form name="frm" method="post" action="/_setup">
-    <input type="radio" name="action" value="use_existing_db" checked>Use existing database content<br>
-    <input type="radio" name="action" value="empty_db">Empty database<br>
+    <style>
 
-    <button name="submit" type="submit">Next</button>
-</form>
+        body{
+            margin-top: 1.5rem;
+        }
+        h1, h2{
+            text-transform: uppercase;
+        }
 
-<h2>- or -</h2>
-<h2>Load an existing sspak file</h2>
+        h1{
+            font-size: 2rem;
+        }
 
-<form enctype="multipart/form-data" action="/_setup" method="POST">
-    <input type="hidden" name="action" value="upload">
+        h2{
 
-    <p>Upload your file</p>
-    <input type="file" name="uploaded_file"><br />
-    <input type="submit" value="Upload">
-</form>
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        form{
+            margin-bottom: 1rem;
+        }
+        p{
+            margin-bottom: 1rem;
+        }
+        input[type="file"],
+        input[type="submit"] {
+            margin-bottom: 1rem;
+        }
+        .center{
+            margin: 0 auto;
+            margin: 0 auto;
+            /* display: inline-block; */
+            max-width: 550px;
+            border: 1px solid;
+            padding: 1rem 2rem;
+            /* width: 800px; */
+            background-color: #d0dfec;
+            margin-bottom: 3rem;
+            box-shadow: 3px 4px 10px 0px #818182;
+        }
+        .btn {
+            min-width: 110px;
+        }
+    </style>
+</head>
+<body>
+<!-- setup_database.html -->
+<div class="center">
+    <h1>Setup</h1>
+
+    <p>Would you like to start with an empty database or re-use the data in the `data` volume instead?</p>
+
+
+    <form name="frm" method="post" action="/_setup">
+        <div class="radio">
+            <input type="radio" name="action" value="use_existing_db" checked>
+            <label for="">Use existing database content</label>
+        </div>
+        <div class="radio">
+            <input type="radio" name="action" value="empty_db">
+            <label for="">Empty database</label>
+        </div>
+        <button class="btn btn-success" name="submit" type="submit">Next</button>
+
+    </form>
+
+    <!-- <h2>- or -</h2> -->
+    <h2>- Or load an existing sspak file -</h2>
+
+    <form enctype="multipart/form-data" action="/_setup" method="POST">
+        <input type="hidden" name="action" value="upload">
+
+        <p>Upload your file</p>
+        <input type="file" name="uploaded_file"><br />
+        <button class="btn btn-success" type="submit">Upload</button>
+
+    </form>
+</div>
+</body>
+</html>
