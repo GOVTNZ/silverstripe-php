@@ -32,7 +32,9 @@ if ($method === 'POST') {
     $action = isset($_POST['action']) ? $_POST['action'] : '';
 
     if ($action === 'upload') {
-        if(!empty($_FILES['uploaded_file'])) {
+        if(! empty($_FILES['uploaded_file'])) {
+            echo "Please wait...<br/>"; flush();
+
             $path = "/tmp/";
             $path = $path . basename( $_FILES['uploaded_file']['name']);
 
@@ -58,10 +60,14 @@ if ($method === 'POST') {
             }
         }
     } else if (isset($_POST['composer_install'])) {
+        echo "Please wait...<br/>"; flush();
+
         runCommand("/usr/bin/runas /usr/local/bin/composer -v install 2>&1 ");
-        echo "<a href='/'>Setup database</a>";
+        echo "<a href='/_setup'>Setup database</a>";
         exit();
     } else if ($action === 'empty_db' || isset($_POST['setup_empty_db'])) {
+        echo "Please wait...<br/>"; flush();
+
         deleteDb();
         runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
         runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
@@ -73,6 +79,8 @@ if ($method === 'POST') {
         echo file_get_contents("rundevbuild.html");
         exit();
     } else if (isset($_POST['run_dev_build'])) {
+        echo "Please wait...<br/>"; flush();
+
         runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
         runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
         echo "<a href='/'>Open site</a>";
@@ -81,6 +89,9 @@ if ($method === 'POST') {
     } else if (isset($_POST['finish'])) {
         @unlink($root . ".needs-setup");
         header('Location: /');
+        exit();
+    } else if ($action === "load_sspak") {
+        echo file_get_contents("load_sspak.html");
         exit();
     }
 
@@ -111,6 +122,12 @@ function runCommand($cmd) {
     if (!is_resource($process)) {
         die ('Could not execute script');
     }
+
+    echo "<script>";
+    echo "var scrollInterval = setInterval(function() {";
+    echo "document.body.scrollTop = document.body.scrollHeight;";
+    echo "}, 500);";
+    echo "</script>";
 
     echo "<pre>";
     if (is_resource($process)) {

@@ -60,15 +60,18 @@
     </style>
 </head>
 <body>
-<!-- Composer	 -->
+<!-- setup_database.html -->
 <div class="center">
     <h1>Setup</h1>
 
-    <p>It looks like you have to run <code>composer install</code> first. Note: this may take a while to finish.</p>
+    <p>Select a sspak-file to upload and press `next`</p>
 
-    <form name="frm" method="post" action="/_setup">
-        <button class="btn btn-success" name="composer_install" type="submit">Start</button>
-        <!--<button name="install_no" type="submit">No</button> -->
+    <form enctype="multipart/form-data" action="/_setup" method="POST">
+        <input type="hidden" name="action" value="upload">
+
+        <p>Upload your file</p>
+        <input type="file" name="uploaded_file"><br />
+        <button class="btn btn-success" type="submit">Next</button>
     </form>
 </div>
 </body>
