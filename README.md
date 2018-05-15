@@ -11,6 +11,19 @@
 
 A specific version hasn't been released yet.
 
+## Getting started
+
+1. checkout the Silverstripe project
+2. add the example `docker-compose.yml` to your project (see `examples` directory)
+3. run `docker-compose up`
+4. browse to `localhost:8000` and finish the setup (note: you can always go back to `localhost:8000/_setup` to reset the database)
+
+### Running behat tests
+
+1. open a VNC session to `localhost:5900`
+2. start `docker-compose exec web behat @mysite`
+
+
 ## Environment Info
 
 This image comes pre-packaged with the default php extensions and configurations found on [SilverStripe Platform](https://platform.silverstripe.com). It also includes some tooling pre-installed for ease-of-use.
