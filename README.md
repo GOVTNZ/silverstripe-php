@@ -9,11 +9,11 @@
 
 ### Versions
 
-There hasn't been released a specific version yet.
+A specific version hasn't been released yet.
 
 ## Environment Info
 
-This image comes pre-packaged with a the default php extensions and configurations found on [SilverStripe Platform](https://platform.silverstripe.com). It also comes with some tooling pre-installed for ease-of-use.
+This image comes pre-packaged with the default php extensions and configurations found on [SilverStripe Platform](https://platform.silverstripe.com). It also includes some tooling pre-installed for ease-of-use.
 
 ### Build Tools
 
@@ -30,7 +30,7 @@ This image comes pre-packaged with a the default php extensions and configuratio
 
 ## Running with Docker-Compose
 
-Add the example `docker-compose.yml` file to your project and run `docker-compose up`. If you open a browser session to `localhost:8000`, you will guided through the initial setup.
+Add the example `docker-compose.yml` file to your project and run `docker-compose up`. Then open a browser session at  `localhost:8000`, and you will be guided through the initial setup.
 
 The following scripts are available in this image;
 - behat (`docker-compose exec web behat @mysite`). Open a VNC-session at :5900 to look at the browser executing the tests.
@@ -38,7 +38,7 @@ The following scripts are available in this image;
 - sake (`docker-compose exec web sake dev/build`)
 - shell (`docker-compose exec web shell`)
 
-NOTE: A default `_ss_environment.php` file has been provided that expects a database server with the specific hostname `db`. CMS Admin username and password is set to root/root. All emails send out by the application are caught by mailctacher. Browse to `localhost:1080` to see those emails.
+NOTE: A default `_ss_environment.php` file has been provided that expects a database server with the specific hostname `db`. CMS Admin username and password is set to root/root. All emails sent out by the application are caught by mailctacher. Browse to `localhost:1080` to see those emails.
 
 # License
 
@@ -56,7 +56,7 @@ Please see [the Docker installation documentation](https://docs.docker.com/insta
 
 ## Issues
 
-If you have any problems with or questions about this image, please contact us through a [GitHub issue](https://github.com/govtnz/silverstripe-php/issues). 
+If you have any problems or questions about this image, please contact us through a [GitHub issue](https://github.com/govtnz/silverstripe-php/issues). 
 
 ## Contributing
 
