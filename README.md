@@ -26,13 +26,14 @@ This image comes pre-packaged with a the default php extensions and configuratio
 - [gosu](https://github.com/tianon/gosu)
 - [behat](http://behat.org/)
 - [sake](https://docs.silverstripe.org/en/4/developer_guides/cli/)
+- [chrome](https://github.com/SeleniumHQ/docker-selenium)
 
 ## Running with Docker-Compose
 
 Add the example `docker-compose.yml` file to your project and run `docker-compose up`. If you open a browser session to `localhost:8000`, you will guided through the initial setup.
 
 The following scripts are available in this image;
-- behat (`docker-compose exec web behat @mysite`)
+- behat (`docker-compose exec web behat @mysite`). Open a VNC-session at :5900 to look at the browser executing the tests.
 - sspak (`docker-compose exec web sspak load <filename>`)
 - sake (`docker-compose exec web sake dev/build`)
 - shell (`docker-compose exec web shell`)
