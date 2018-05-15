@@ -1,21 +1,10 @@
 # How to use this image.
 
-This image - together with a `docker-compose.yml` and a `behat-docker.yml` file provides you with the complete infrastructure to run a Slverstripe CWP website. It contains the webserver with a database server as well as 
+This image - together with a `docker-compose.yml` and a `behat-docker.yml` file provides you with the complete infrastructure to run a Silverstripe CWP website. It contains the webserver, database server as well as 
 the following;
-- solr server
-- selenium server (for running the behat tests)
-- mailcatcher
-
-## Requirements
-
-- [*Docker*](https://docs.docker.com/)
-- [*Docker Compose*](https://docs.docker.com/compose/overview/)
-
-## Builds
-
-### Versions
-
-A specific version hasn't been released yet.
+- solr server, to provide a fulltext-search option
+- selenium server, for running the behat tests
+- mailcatcher, to display all mail send by the application
 
 ## Getting started
 
