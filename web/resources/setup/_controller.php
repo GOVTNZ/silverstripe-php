@@ -17,15 +17,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 $root = '/var/www/html/';
 
 if ($method === 'GET') {
-//    if (file_exists($root . ".needs-setup")) {
-        if (!file_exists($root . "framework")) {
-            echo file_get_contents("composer.html");
-        } else {
-            echo file_get_contents("setup_database.html");
-        }
-//    } else {
-//        echo file_get_contents("dashboard.html");
-//    }
+    if (!file_exists($root . "framework")) {
+        display("composer.html");
+    } else {
+        display("setup_database.html");
+    }
 }
 
 if ($method === 'POST') {
@@ -76,7 +72,7 @@ if ($method === 'POST') {
         @unlink($root . ".needs-setup");
         exit();
     } else if ($action === 'use_existing_db' || isset($_POST['use_existing_db'])) {
-        echo file_get_contents("rundevbuild.html");
+        display("rundevbuild.html");
         exit();
     } else if (isset($_POST['run_dev_build'])) {
         echo "Please wait...<br/>"; flush();
@@ -91,12 +87,18 @@ if ($method === 'POST') {
         header('Location: /');
         exit();
     } else if ($action === "load_sspak") {
-        echo file_get_contents("load_sspak.html");
+        display("load_sspak.html");
         exit();
     }
 
     header('Location: /');
     exit();
+}
+
+function display($file) {
+    $page = file_get_contents("index.html");
+    $content = file_get_contents($file);
+    echo str_replace("__CONTENT__", $content, $page);
 }
 
 function deleteDb() {
