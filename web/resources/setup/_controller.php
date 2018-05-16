@@ -1,5 +1,8 @@
 <?php
 
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+
 require_once '_functions.php';
 
 define("ROOT", "/var/www/html/");
@@ -40,10 +43,10 @@ if ($method === 'GET') {
                 }
 
                 if($result) {
-                    runCommand("/usr/bin/runas /usr/local/bin/sspak load " . $path);
-                    runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
+                    runCommand("/usr/local/bin/sspak load " . $path);
+                    runCommand("/usr/local/bin/sake dev/build 2>&1 ");
 
-                    @unlink(ROOT . ".needs-setup");
+                    @unlink(ROOT . "assets/.needs-setup");
                     echo "<a href='/'>Open site</a>";
                     exit();
                 } else {
@@ -56,11 +59,11 @@ if ($method === 'GET') {
             echo "Please wait...<br/>"; flush();
 
             deleteDb();
-            runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
-            runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
-            runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Reindex 2>&1 ");
+            runCommand("/usr/local/bin/sake dev/build 2>&1 ");
+            runCommand("/usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
+            runCommand("/usr/local/bin/sake dev/tasks/Solr_Reindex 2>&1 ");
             echo "<a href='/'>Open site</a>";
-            @unlink(ROOT . ".needs-setup");
+            @unlink(ROOT . "assets/.needs-setup");
             exit();
 
         } else if ($action === 'use_existing_db') {
@@ -83,15 +86,15 @@ if ($method === 'GET') {
         } else if (isset($_POST['run_dev_build'])) {
             echo "Please wait...<br/>"; flush();
 
-            runCommand("/usr/bin/runas /usr/local/bin/sake dev/build 2>&1 ");
-            runCommand("/usr/bin/runas /usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
+            runCommand("/usr/local/bin/sake dev/build 2>&1 ");
+            runCommand("/usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
             echo "<a href='/'>Open site</a>";
-            @unlink(ROOT . ".needs-setup");
+            @unlink(ROOT . "assets/.needs-setup");
             exit();
 
         } else if (isset($_POST['finish'])) {
 
-            @unlink(ROOT . ".needs-setup");
+            @unlink(ROOT . "assets/.needs-setup");
             header('Location: /');
             exit();
 

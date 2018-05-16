@@ -29,6 +29,21 @@ if [ ! -d "/cache" ]; then
   mkdir /cache
 fi
 
+
+#
+# Change permissions on assets folder
+#
+mkdir /var/www/html/assets
+chown -R www-data:www-data /var/www/html/assets
+
+
+#
+# Create needs-setup file to trigger the setup-page
+#
+touch /var/www/html/assets/.needs-setup
+chown www-data:www-data /var/www/html/assets/.needs-setup
+
+
 #
 # Change permissions on /cache
 #

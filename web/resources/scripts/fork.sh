@@ -8,11 +8,6 @@ export COMPOSER_HOME=/cache/.composer
 echo "INFO: Forked web-container... ($HOST_UID:$HOST_GID)"
 
 #
-# Create needs-setup file to trigger the setup-page
-#
-touch /var/www/html/.needs-setup
-
-#
 # Create composer cache directory in cache volume
 #
 echo COMPOSER_HOME has been set to: ${COMPOSER_HOME}
