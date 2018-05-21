@@ -15,7 +15,7 @@ the following;
 
 ### Running behat tests
 
-1. open a VNC session to `localhost:5900`
+1. open a VNC session to `localhost:5900` (password: secret)
 2. start `docker-compose exec web behat @mysite`
 
 
