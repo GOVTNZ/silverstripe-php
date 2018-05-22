@@ -89,7 +89,7 @@ RUN docker-php-ext-configure gd \
 #
 COPY resources/conf/ssmtp.conf /etc/ssmtp/ssmtp.conf
 COPY resources/conf/mail.ini /usr/local/etc/php/conf.d/mail.ini
-
+COPY resources/conf/xdebug-profile.ini /usr/local/etc/php/conf.d/xdebug-profile.ini
 
 #
 # Install composer, sake and supply a default _ss_environment file

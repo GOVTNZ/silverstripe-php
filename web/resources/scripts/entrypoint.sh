@@ -38,6 +38,13 @@ chown -R www-data:www-data /var/www/html/assets
 
 
 #
+# Change permissions on .profile folder
+#
+mkdir /var/www/html/.profile
+chown -R www-data:www-data /var/www/html/.profile
+
+
+#
 # Create needs-setup file to trigger the setup-page
 #
 touch /var/www/html/assets/.needs-setup
@@ -48,5 +55,12 @@ chown www-data:www-data /var/www/html/assets/.needs-setup
 # Change permissions on /cache
 #
 chmod 777 /cache
+
+
+#
+# Add symbolic link to wkhtml2pdf
+#
+ln -s /usr/local/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf_12
+
 
 exec gosu $HOST_UID:$HOST_GID /fork.sh
