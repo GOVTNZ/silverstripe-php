@@ -45,6 +45,7 @@ The following scripts are available in this image;
 - sspak (`docker-compose exec web sspak load <filename>`)
 - sake (`docker-compose exec web sake dev/build`)
 - shell (`docker-compose exec web shell`)
+- mysql (`docker-compose exec db mysql -u root -p`)
 
 NOTE: A default `_ss_environment.php` file has been provided that expects a database server with the specific hostname `db`. CMS Admin username and password is set to root/root. All emails sent out by the application are caught by mailctacher. Browse to `localhost:1080` to see those emails.
 
