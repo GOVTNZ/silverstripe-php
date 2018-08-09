@@ -1,4 +1,4 @@
-FROM brettt89/silverstripe-web
+FROM brettt89/silverstripe-web:5.6-platform
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     libfontconfig1 \
