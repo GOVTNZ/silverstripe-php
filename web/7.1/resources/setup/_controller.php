@@ -17,7 +17,7 @@ header('Cache-Control: no-cache');
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
-    if (!file_exists(ROOT . "framework")) {
+    if (!file_exists(ROOT . "vendor/silverstripe/framework")) {
         display("composer.html");
     } else {
         display("setup_database.html");
@@ -46,7 +46,7 @@ if ($method === 'GET') {
                     runCommand("/usr/local/bin/sspak load " . $path);
                     runCommand("/usr/local/bin/sake dev/build 2>&1 ");
 
-                    @unlink(ROOT . "assets/.needs-setup");
+                    @unlink(ROOT . "public/assets/.needs-setup");
                     echo "<a href='/'>Open site</a>";
                     exit();
                 } else {
@@ -63,7 +63,7 @@ if ($method === 'GET') {
             runCommand("/usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
             runCommand("/usr/local/bin/sake dev/tasks/Solr_Reindex 2>&1 ");
             echo "<a href='/'>Open site</a>";
-            @unlink(ROOT . "assets/.needs-setup");
+            @unlink(ROOT . "public/assets/.needs-setup");
             exit();
 
         } else if ($action === 'use_existing_db') {
@@ -89,12 +89,12 @@ if ($method === 'GET') {
             runCommand("/usr/local/bin/sake dev/build 2>&1 ");
             runCommand("/usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
             echo "<a href='/'>Open site</a>";
-            @unlink(ROOT . "assets/.needs-setup");
+            @unlink(ROOT . "public/assets/.needs-setup");
             exit();
 
         } else if (isset($_POST['finish'])) {
 
-            @unlink(ROOT . "assets/.needs-setup");
+            @unlink(ROOT . "public/assets/.needs-setup");
             header('Location: /');
             exit();
 
