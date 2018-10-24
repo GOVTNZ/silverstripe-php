@@ -95,8 +95,7 @@ COPY resources/conf/xdebug-profile.ini /usr/local/etc/php/conf.d/xdebug-profile.
 # Install composer, sake and supply a default _ss_environment file
 #
 COPY resources/scripts/sake.sh /usr/local/bin/sake
-COPY resources/conf/_ss_environment.php /var/www/
-
+COPY resources/conf/.env /var/www/
 
 #
 # Add scripts and configuration
@@ -109,7 +108,6 @@ COPY resources/scripts/behat.sh /usr/bin/behat
 COPY resources/conf/000-default.conf /etc/apache2/sites-available
 COPY resources/setup/* /var/www/setup/
 
-
 #
 # Modify permissions
 #
@@ -119,7 +117,6 @@ RUN chmod 755 /usr/bin/behat; \
     chmod 755 /fork.sh; \
     chmod 755 /usr/bin/shell; \
     chmod 755 /usr/bin/runas
-
 
 #
 # Entry point

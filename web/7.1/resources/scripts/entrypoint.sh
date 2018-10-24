@@ -33,8 +33,8 @@ fi
 #
 # Change permissions on assets folder
 #
-mkdir /var/www/html/assets
-chown -R www-data:www-data /var/www/html/assets
+mkdir /var/www/html/public/assets
+chown -R www-data:www-data /var/www/html/public/assets
 
 
 #
@@ -47,8 +47,8 @@ chown -R www-data:www-data /var/www/html/.profile
 #
 # Create needs-setup file to trigger the setup-page
 #
-touch /var/www/html/assets/.needs-setup
-chown www-data:www-data /var/www/html/assets/.needs-setup
+touch /var/www/html/public/assets/.needs-setup
+chown www-data:www-data /var/www/html/public/assets/.needs-setup
 
 
 #
