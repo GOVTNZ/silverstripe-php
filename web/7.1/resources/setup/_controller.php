@@ -1,7 +1,5 @@
 <?php
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 
 require_once '_functions.php';
 
@@ -9,7 +7,7 @@ define("ROOT", "/var/www/html/");
 
 ini_set('output_buffering', 'off');
 ini_set('zlib.output_compression',0);
-set_time_limit(5);
+set_time_limit(10);
 
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache');
@@ -43,7 +41,8 @@ if ($method === 'GET') {
                 }
 
                 if($result) {
-                    runCommand("/usr/local/bin/sspak load " . $path);
+                    runCommand("/usr/local/bin/sspak load " . $path . ' --drop-db');
+
                     runCommand("/usr/local/bin/sake dev/build 2>&1 ");
 
                     @unlink(ROOT . "public/assets/.needs-setup");
