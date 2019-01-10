@@ -18,6 +18,11 @@ the following;
 1. open a VNC session to `localhost:5900` (password: secret)
 2. start `docker-compose exec web behat @mysite`
 
+### Running PHPUnit tests
+1. start `docker-compose exec web vendor/bin/phpunit` to run all tests
+- or -
+1. start `docker-compose exec web vendor/bin/phpunit <directory to tests>` to run specific tests only
+
 
 ## Environment Info
 
