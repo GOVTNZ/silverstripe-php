@@ -41,6 +41,13 @@ This image comes pre-packaged with the default php extensions and configurations
 - [sake](https://docs.silverstripe.org/en/4/developer_guides/cli/)
 - [chrome](https://github.com/SeleniumHQ/docker-selenium)
 
+## Loading database content
+
+The `setup` interface allows you to load an sspak-file during startup, but if this file is too large then you need to load the file using the sspak application provided in the web-container.
+
+For example:
+- `docker-compose exec web sspak load <path to file>`
+
 ## Running with Docker-Compose
 
 Add the example `docker-compose.yml` file to your project and run `docker-compose up`. Then open a browser session at  `localhost:8000`, and you will be guided through the initial setup.
