@@ -45,8 +45,8 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh; \
 #
 # Install sass and compass
 #
-RUN gem install sass -v 3.4.25; \
-    gem install compass
+RUN gem install sass -v 3.4.25;
+    #  \  gem install compass
 
 
 #

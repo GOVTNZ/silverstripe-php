@@ -7,7 +7,7 @@ define("ROOT", "/var/www/html/");
 
 ini_set('output_buffering', 'off');
 ini_set('zlib.output_compression',0);
-set_time_limit(10);
+set_time_limit(100000);
 
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache');
