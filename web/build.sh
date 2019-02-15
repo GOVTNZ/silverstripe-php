@@ -10,4 +10,4 @@ done
 
 ## Force 5.6/platform to be latest build
 echo "### Building govtnz/silverstripe-web-container:latest"
-docker build -t "govtnz/silverstripe-web-container:latest" "5.6"
+docker build -t "govtnz/silverstripe-web-container:latest" "7.1"

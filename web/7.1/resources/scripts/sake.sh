@@ -24,8 +24,8 @@ else
 	directory="$PWD"
 	base=.
 	for (( n=${#slashes}; n>0; --n )) do
-		if [ -d "$directory/framework" ]; then
-			framework="$directory/framework"
+		if [ -d "$directory/vendor/silverstripe/framework" ]; then
+			framework="$directory/vendor/silverstripe/framework"
 
 			break
 		elif [ -d "$directory/sapphire" ]; then
@@ -38,8 +38,8 @@ else
 		base="$base."
 	done
 
-	if [ ! -f "$framework/cli-script.php" ]; then
-		echo "Can't find cli-script.php in $framework"
+	if [ ! -f "$directory/vendor/silverstripe/framework/cli-script.php" ]; then
+		echo "Oh no! Can't find cli-script.php in $framework"
 		exit 1
 	fi
 fi
