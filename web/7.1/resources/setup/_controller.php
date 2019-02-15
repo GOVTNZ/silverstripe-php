@@ -1,7 +1,5 @@
 <?php
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 
 require_once '_functions.php';
 
@@ -9,7 +7,7 @@ define("ROOT", "/var/www/html/");
 
 ini_set('output_buffering', 'off');
 ini_set('zlib.output_compression',0);
-set_time_limit(5);
+set_time_limit(100000);
 
 header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache');
@@ -17,7 +15,7 @@ header('Cache-Control: no-cache');
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
-    if (!file_exists(ROOT . "framework")) {
+    if (!file_exists(ROOT . "vendor/silverstripe/framework")) {
         display("composer.html");
     } else {
         display("setup_database.html");
@@ -43,10 +41,11 @@ if ($method === 'GET') {
                 }
 
                 if($result) {
-                    runCommand("/usr/local/bin/sspak load " . $path);
+                    runCommand("/usr/local/bin/sspak load " . $path . ' --drop-db');
+
                     runCommand("/usr/local/bin/sake dev/build 2>&1 ");
 
-                    @unlink(ROOT . "assets/.needs-setup");
+                    @unlink(ROOT . "public/assets/.needs-setup");
                     echo "<a href='/'>Open site</a>";
                     exit();
                 } else {
@@ -63,7 +62,7 @@ if ($method === 'GET') {
             runCommand("/usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
             runCommand("/usr/local/bin/sake dev/tasks/Solr_Reindex 2>&1 ");
             echo "<a href='/'>Open site</a>";
-            @unlink(ROOT . "assets/.needs-setup");
+            @unlink(ROOT . "public/assets/.needs-setup");
             exit();
 
         } else if ($action === 'use_existing_db') {
@@ -89,12 +88,12 @@ if ($method === 'GET') {
             runCommand("/usr/local/bin/sake dev/build 2>&1 ");
             runCommand("/usr/local/bin/sake dev/tasks/Solr_Configure 2>&1 ");
             echo "<a href='/'>Open site</a>";
-            @unlink(ROOT . "assets/.needs-setup");
+            @unlink(ROOT . "public/assets/.needs-setup");
             exit();
 
         } else if (isset($_POST['finish'])) {
 
-            @unlink(ROOT . "assets/.needs-setup");
+            @unlink(ROOT . "public/assets/.needs-setup");
             header('Location: /');
             exit();
 
