@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ; apt-get purge -y --auto-remove \
     ; rm -rf /var/lib/apt/lists/*
 
+#
+# Symlink Chrome Driver in
+#
+RUN ln -s /usr/lib/chromium/chromedriver /usr/bin/;
 
 #
 # Install GOSU, see https://github.com/tianon/gosu for more details
