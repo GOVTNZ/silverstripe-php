@@ -1,6 +1,7 @@
 FROM brettt89/silverstripe-web:7.1-platform
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    chromedriver \
     libfontconfig1 \
     libxrender1 \
     locales \
