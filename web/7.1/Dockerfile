@@ -1,6 +1,7 @@
 FROM brettt89/silverstripe-web:7.1-platform
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    chromedriver \
     libfontconfig1 \
     libxrender1 \
     locales \
@@ -15,6 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ; apt-get purge -y --auto-remove \
     ; rm -rf /var/lib/apt/lists/*
 
+#
+# Symlink Chrome Driver in
+#
+RUN ln -s /usr/lib/chromium/chromedriver /usr/bin/;
 
 #
 # Install GOSU, see https://github.com/tianon/gosu for more details
