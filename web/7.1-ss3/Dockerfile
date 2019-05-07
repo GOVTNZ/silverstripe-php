@@ -63,13 +63,13 @@ ENV LC_ALL en_US.UTF-8
 # Install WKHTMLTOPDF (https://wkhtmltopdf.org/)
 #
 RUN set -ex; \
-    wget -O /tmp/wkhtmltopdf.tar.gz "https://github.com/wkhtmltopdf/wkhtmltopdf/archive/0.12.1.1.tar.gz"
+    wget -O /tmp/wkhtmltopdf.tar.gz "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz"
 
 RUN cd /tmp; \
     tar -xf /tmp/wkhtmltopdf.tar.gz; \
-    mv /tmp/wkhtmltopdf-0.12.1.1 /opt; \
-    ls -l /opt/wkhtmltopdf-0.12.1.1; \
-    ln -s /opt/wkhtmltopdf-0.12.1.1/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf; \
+    mv /tmp/wkhtmltox /opt; \
+    ls -l /opt/wkhtmltox/bin; \
+    ln -s /opt/wkhtmltox/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf; \
     chmod 555 /usr/local/bin/wkhtmltopdf; \
     /usr/local/bin/wkhtmltopdf -h
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -a phpVersions=("7.1" "5.6","7.1-ss3")
+declare -a phpVersions=("7.1" "5.6" "7.1-ss3")
 
 for version in "${phpVersions[@]}"
 do
