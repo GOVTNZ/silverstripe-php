@@ -2,8 +2,13 @@
 set -e
 
 if [ ! -d "/index" ]; then
-  echo ERROR: directory \'/index\' doesn\'t exist. Perhaps you forgot to mount a volume?
-  exit 255
+  mkdir /index
+  chmod 777 index
+
+  if [ ! -d "/index" ]; then
+    echo ERROR: directory \'/index\' doesn\'t exist. Perhaps you forgot to mount a volume?
+    exit 255
+  fi
 fi
 
 if [ -d "/index/data" ]; then
