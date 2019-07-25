@@ -60,7 +60,6 @@ Add the example `docker-compose.yml` file to your project and run `docker-compos
 The following scripts are available in this image;
 - behat (`docker-compose exec web behat @mysite`). Open a VNC-session at :5900 to look at the browser executing the
 tests.
-
 - sspak (`docker-compose exec web sspak load <filename>`)
 - sake (`docker-compose exec web sake dev/build`)
 - shell (`docker-compose exec web shell`)
@@ -69,6 +68,13 @@ tests.
 NOTE: A default `_ss_environment.php` file has been provided that expects a database server with the specific
 hostname `db`. CMS Admin username and password is set to root/root. All emails sent out by the application are caught
 by mailctacher. Browse to `localhost:1080` to see those emails.
+
+# Tagging a new release
+
+* Make the changes to the `Dockerfile`
+* Build the docker image `docker build path/to/folder`
+* Tag the release `docker tag <hash> govtnz/name`
+* Push the release `docker push govtnz/name`
 
 # License
 
