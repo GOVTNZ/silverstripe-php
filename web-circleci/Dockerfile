@@ -7,7 +7,10 @@ RUN apt-get update && apt-get install -y \
     vim \
     git \
     openjdk-7-jdk \
-    openssh-server
+    openssh-server \
+    xvfb \
+    libfontconfig \
+    wkhtmltopdf
 
 RUN mkdir /usr/java && ln -s /usr/lib/jvm/java-7-openjdk-amd64 /usr/java/default
 
