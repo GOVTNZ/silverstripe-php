@@ -1,0 +1,20 @@
+<h1>Setup</h1>
+
+<p>Would you like to start with an empty database or re-use the data in the `data` volume instead?</p>
+
+<form name="frm" method="post" action="/_setup">
+    <div class="radio">
+        <input id="r1" type="radio" name="action" value="use_existing_db" checked>
+        <label for="r1">Use existing database content</label>
+    </div>
+    <div class="radio">
+        <input id="r2" type="radio" name="action" value="empty_db">
+        <label for="r2">Start with an empty database</label>
+    </div>
+    <div class="radio">
+        <input id="r3" type="radio" name="action" value="load_sspak">
+        <label for="r3">Load a sspak file</label>
+    </div>
+
+    <button class="btn btn-success" name="submit" type="submit">Next</button>
+</form>
