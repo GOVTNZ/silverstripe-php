@@ -96,8 +96,11 @@ by mailctacher. Browse to `localhost:1080` to see those emails.
 * Tag the release `docker tag <hash> govtnz/name`
 * Push the release `docker push govtnz/name`
 
-To make this easier, each image folder has a script `./build.sh` which builds
-the docker image and optionally publishes the updated tag `./build.sh --publish`
+To make this easier, See the script `./build.sh` which builds the docker image
+and optionally publishes the updated tag `./build.sh --publish`. Specific a
+folder to build if required e.g
+
+	./build.sh silverstripe-web-container/7.3 --publish
 
 # License
 
