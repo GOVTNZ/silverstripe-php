@@ -1,13 +1,11 @@
 FROM brettt89/silverstripe-web:7.3-debian
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    chromedriver \
     libfontconfig1 \
     libxrender1 \
     locales \
-    mysql-client \
+    mariadb-client \
     ruby ruby-dev \
-    ssmtp \
     unzip \
     wget \
     zip \
@@ -16,25 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ; apt-get purge -y --auto-remove \
     ; rm -rf /var/lib/apt/lists/*
 
-#
-# Symlink Chrome Driver in
-#
-RUN ln -s /usr/lib/chromium/chromedriver /usr/bin/;
 
-#
-# Install GOSU, see https://github.com/tianon/gosu for more details
-#
-ENV GOSU_VERSION 1.10
-RUN set -ex; \
-	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
-	wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
-	wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
-	export GNUPGHOME="$(mktemp -d)"; \
-	gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
-	gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu; \
-	rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc; \
-	chmod +xs /usr/local/bin/gosu; \
-	gosu nobody true
 
 
 #
@@ -45,14 +25,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh; \
     apt-get install nodejs; \
     chmod 777 /usr/lib/node_modules/; \
     chmod 777 /usr/bin
-
-
-#
-# Install sass and compass
-#
-RUN gem install sass -v 3.4.25;
-    #  \  gem install compass
-
 
 #
 # Set the default locale (needed for compass)
@@ -67,17 +39,7 @@ ENV LC_ALL en_US.UTF-8
 #
 # Install WKHTMLTOPDF (https://wkhtmltopdf.org/)
 #
-RUN set -ex; \
-    wget -O /tmp/wkhtmltopdf.tar.gz "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz"
-
-RUN cd /tmp; \
-    tar -xf /tmp/wkhtmltopdf.tar.gz; \
-    mv /tmp/wkhtmltox /opt; \
-    ls -l /opt/wkhtmltox/bin; \
-    ln -s /opt/wkhtmltox/bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf; \
-    chmod 555 /usr/local/bin/wkhtmltopdf; \
-    /usr/local/bin/wkhtmltopdf -h
-
+RUN apt-get install -y wkhtmltopdf
 
 #
 # Temporarily enable jpeg and freetype in this docker file until PR23 is released

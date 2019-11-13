@@ -3,7 +3,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     wget \
-    mysql-client \
+    mariadb-client \
     software-properties-common
 
 RUN apt-get install -y default-jre
