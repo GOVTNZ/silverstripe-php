@@ -27,16 +27,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh; \
     chmod 777 /usr/bin
 
 #
-# Set the default locale (needed for compass)
-#
-RUN sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen && \
-    locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
-
-#
 # Install WKHTMLTOPDF (https://wkhtmltopdf.org/)
 #
 RUN apt-get install -y wkhtmltopdf
