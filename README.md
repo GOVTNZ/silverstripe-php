@@ -6,9 +6,9 @@ extend the work done on the `brett89/silverstripe-web` repo, adding additional
 features that are commonly used such as `wkhtmltopdf` within the image rather
 than seperate services.
 
-	* govtnz/silverstripe-web-circleci (7.1, 7.3). Designed for CircleCI
-	* govtnz/silverstripe-web (5.6, 7.1, 7.3). Designed for local Development.
-	* govtnz/silverstripe-localsolr. Designed for running Solr locally.
+* `govtnz/silverstripe-web-circleci` (7.1, 7.3). Designed for CircleCI
+* `govtnz/silverstripe-web` (5.6, 7.1, 7.3). Designed for local Development.
+* `govtnz/silverstripe-localsolr`. Designed for running Solr locally.
 
 ## How to use this image locally
 
@@ -88,6 +88,16 @@ NOTE: A default `_ss_environment.php` file has been provided that expects a
 database server with the specific hostname `db`. CMS Admin username and
 password is set to root/root. All emails sent out by the application are caught
 by mailctacher. Browse to `localhost:1080` to see those emails.
+
+# Testing Changes
+
+If you make changes to an image run the following commands to build and test
+
+```
+cd silverstripe-web-circleci/7.3
+docker build .
+docker run -p {hash}
+```
 
 # Tagging a new release
 

@@ -34,8 +34,15 @@ echo ""
 for FOLDER in "${BUILD_FOLDERS[@]}"
 do
 	find "$FOLDER" -type d | while IFS= read -r d; do
-		IMAGE="govtnz/${d}"
+		# convert /7.3 to :7.3
+		NAME=${d//\//\:}
+		IMAGE="govtnz/${NAME}"
 		VERSION=""
+
+		# if resources folder then skip
+		if [[ $string == *":resources:"* ]]; then
+  			continue
+		fi
 
 		# calculate version string
 		IFS='/'
@@ -54,7 +61,7 @@ do
 		fi
 
         echo "### Removing existing ${IMAGE} ###"
-		docker image rm "${IMAGE}"
+		docker image rm -f "${IMAGE}"
 
 		echo "### Building ${IMAGE} ###"
     	docker build -t "${IMAGE}" "${d}"

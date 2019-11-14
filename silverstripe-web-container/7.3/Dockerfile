@@ -14,9 +14,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ; apt-get purge -y --auto-remove \
     ; rm -rf /var/lib/apt/lists/*
 
-
-
-
 #
 # Install node, npm
 #
@@ -49,7 +46,7 @@ COPY resources/conf/mail.ini /usr/local/etc/php/conf.d/mail.ini
 COPY resources/conf/xdebug-profile.ini /usr/local/etc/php/conf.d/xdebug-profile.ini
 
 #
-# Install composer, sake and supply a default _ss_environment file
+# Supply a default .env file
 #
 COPY resources/scripts/sake.sh /usr/local/bin/sake
 COPY resources/conf/.env /var/www/

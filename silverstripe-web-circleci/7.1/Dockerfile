@@ -9,6 +9,9 @@ RUN apt-get update && apt-get install -y \
     libfontconfig \
     wkhtmltopdf
 
+# Install composer
+RUN curl --silent --show-error https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 RUN mkdir /usr/java && ln -s /usr/lib/jvm/java-7-openjdk-amd64 /usr/java/default
 
 EXPOSE 8983
