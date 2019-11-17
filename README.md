@@ -31,7 +31,7 @@ back to `localhost:8000/_setup` to reset the database)
 
 ### Running behat tests
 
-1. open a VNC session to `localhost:5900` (password: secret)
+1. open a VNC session to `localhost:5900` **(password: secret)**
 2. start `docker-compose exec web behat @mysite`
 
 ### Running PHPUnit tests
@@ -77,7 +77,7 @@ Add the example `docker-compose.yml` file to your project and run
 will be guided through the initial setup.
 
 The following scripts are available in this image;
-- behat (`docker-compose exec web behat @mysite`). Open a VNC-session at :5900
+- behat (`docker-compose exec web behat @mysite`). Open a VNC-session at :5900  **(password: secret)**
 to look at the browser executing the tests.
 - sspak (`docker-compose exec web sspak load <filename>`)
 - sake (`docker-compose exec web sake dev/build`)
