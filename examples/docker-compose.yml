@@ -46,7 +46,7 @@ services:
     depends_on:
       - db
       - search
-    image: govtnz/silverstripe-web-container:1.0
+    image: govtnz/silverstripe-web-container:7.3
     ports:
       - "8000:80"
     volumes:
