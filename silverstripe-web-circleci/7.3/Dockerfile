@@ -1,5 +1,7 @@
-FROM brettt89/silverstripe-web:7.3-debian
+FROM brettt89/silverstripe-web:7.3-debian-stretch
 RUN apt-get update && apt-get install -y  software-properties-common
+
+RUN mkdir -p /usr/share/man/man1
 
 # RUN add-apt-repository ppa:openjdk-r/ppa
 RUN apt-get update && apt-get install -y \
@@ -10,6 +12,14 @@ RUN apt-get update && apt-get install -y \
     xvfb \
     libfontconfig \
     wkhtmltopdf
+
+# Install java
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+    apt-get clean;
 
 # Install composer
 RUN curl --silent --show-error https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

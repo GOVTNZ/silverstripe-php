@@ -72,3 +72,5 @@ do
 		fi
     done
 done
+
+echo "### DONE"
