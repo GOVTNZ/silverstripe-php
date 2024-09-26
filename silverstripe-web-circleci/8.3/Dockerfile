@@ -1,4 +1,4 @@
-FROM brettt89/silverstripe-web:8.2-apache
+FROM brettt89/silverstripe-web:8.3-apache
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y software-properties-common
 
